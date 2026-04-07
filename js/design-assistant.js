@@ -400,21 +400,25 @@ async function generateCustomDesign() {
     // Intentar usar backend primero, si falla usar generador local
     let pattern;
     try {
+      console.log(
+        "🔄 Intentando usar backend en:",
+        "https://puntodecruz.onrender.com/generate-pattern",
+      );
       pattern = await generatePatternWithBackend(
         description,
         gridData.length,
         gridData[0].length,
       );
+      console.log("✅ Patrón generado desde Claude AI (backend)");
     } catch (backendError) {
-      console.warn(
-        "Backend no disponible, usando generador local:",
-        backendError.message,
-      );
+      console.warn("⚠️ Backend error:", backendError.message);
+      console.log("📍 Usando generador local sin IA...");
       pattern = generatePatternFromDescription(
         description,
         gridData.length,
         gridData[0].length,
       );
+      console.log("✅ Patrón generado localmente (sin IA)");
     }
 
     if (pattern) {
@@ -435,6 +439,10 @@ async function generateCustomDesign() {
 async function generatePatternWithBackend(description, maxRows, maxCols) {
   const backendUrl = "https://puntodecruz.onrender.com/generate-pattern";
 
+  console.log("📤 Enviando petición al backend...");
+  console.log("  Description:", description);
+  console.log("  Dimensiones:", maxRows, "x", maxCols);
+
   const response = await fetch(backendUrl, {
     method: "POST",
     headers: {
@@ -447,12 +455,17 @@ async function generatePatternWithBackend(description, maxRows, maxCols) {
     }),
   });
 
+  console.log("📥 Respuesta del backend - Status:", response.status);
+
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || "Error en el backend");
+    console.error("❌ Error en backend:", error);
+    throw new Error(error.error || `Error ${response.status} en el backend`);
   }
 
-  return await response.json();
+  const result = await response.json();
+  console.log("✅ Patrón recibido del backend");
+  return result;
 }
 
 // Generador inteligente de patrones basado en descripción

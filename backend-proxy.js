@@ -30,8 +30,12 @@ app.get("/", (req, res) => {
 // Endpoint para generar patrones
 app.post("/generate-pattern", async (req, res) => {
   try {
+    console.log("📨 NUEVA PETICIÓN RECIBIDA");
+    console.log("  Timestamp:", new Date().toISOString());
+
     // Validar que CLAUDE_API_KEY esté configurada
     if (!process.env.CLAUDE_API_KEY) {
+      console.error("❌ ERROR: CLAUDE_API_KEY no está configurada!");
       return res.status(500).json({
         error: "API key de Claude no configurada en el servidor",
         details:
@@ -39,7 +43,12 @@ app.post("/generate-pattern", async (req, res) => {
       });
     }
 
+    console.log("✅ CLAUDE_API_KEY está configurada");
+
     const { description, maxRows, maxCols } = req.body;
+
+    console.log("  Description:", description);
+    console.log("  Dimensiones:", maxRows, "x", maxCols);
 
     if (!description) {
       return res.status(400).json({ error: "Se requiere una descripción" });
@@ -86,6 +95,7 @@ Ejemplo para un corazón simple:
 Ahora crea el patrón para: ${description}`;
 
     // Llamar a Claude
+    console.log("🤖 Llamando a Claude API...");
     const message = await anthropic.messages.create({
       model: "claude-3-haiku-20240307",
       max_tokens: 2000,
@@ -100,16 +110,20 @@ Ahora crea el patrón para: ${description}`;
       ],
     });
 
+    console.log("📤 Respuesta recibida de Claude");
     const response = message.content[0].text;
-    console.log("Respuesta de Claude:", response);
 
     // Parsear respuesta JSON
     let result;
     try {
       // Intentar parsear directamente
+      console.log("🔍 Parseando JSON...");
       result = JSON.parse(response);
+      console.log("✅ JSON parseado correctamente");
     } catch (parseError) {
-      console.log("Error parseando JSON directamente, intentando extraer...");
+      console.warn(
+        "⚠️ Error parseando JSON directamente, intentando extraer...",
+      );
 
       // Intentar extraer JSON del texto
       const jsonMatch = response.match(/\{[\s\S]*\}/);
