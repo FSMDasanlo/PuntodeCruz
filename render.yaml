@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: punto-de-cruz-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLAUDE_API_KEY
+        sync: false # Esto es importante - nunca sincronices la API key
+    plan: free

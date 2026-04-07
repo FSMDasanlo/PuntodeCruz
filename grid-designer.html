@@ -78,6 +78,9 @@
                         <button class="btn-action" id="btnColorPicker" title="Capturar color de la imagen">
                             🎨
                         </button>
+                        <button class="btn-action" id="btnDesignAssistant" title="Asistente de diseño inteligente" onclick="showDesignAssistant()">
+                            ✨
+                        </button>
                         <button class="btn-action" id="btnClear" title="Borrar todo el diseño">
                             🗑️
                         </button>
@@ -99,6 +102,68 @@
     <!-- Hidden file input -->
     <input type="file" id="imageFileInput" accept="image/*" style="display: none;" multiple webkitdirectory directory>
 
+    <!-- Design Assistant Modal -->
+    <div id="designAssistantModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✨ Asistente de Diseño Inteligente</h2>
+                <span class="close" onclick="closeDesignAssistant()">&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <!-- Tabs -->
+                <div class="assistant-tabs">
+                    <button class="tab-button active" onclick="switchTab('templates')">Plantillas</button>
+                    <button class="tab-button" onclick="switchTab('custom')">Personalizado</button>
+                </div>
+
+                <!-- Templates Tab -->
+                <div id="templatesTab" class="assistant-tab active">
+                    <p>Selecciona una plantilla predefinida para aplicar a tu diseño:</p>
+                    <div id="templatesContainer" class="templates-container">
+                        <!-- Templates will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Custom Design Tab -->
+                <div id="customTab" class="assistant-tab">
+                    <p>Describe el objeto o patrón que deseas crear y la IA lo generará para ti:</p>
+
+                    <div class="custom-design-form">
+                        <textarea
+                            id="customDesignDescription"
+                            placeholder="Ejemplos:
+• Un corazón rojo con detalles en rosa
+• Una mariposa azul y púrpura
+• Un árbol verde con tronco marrón
+• Una casa con techo rojo
+• Un gato negro con ojos amarillos
+• Una flor multicolor
+• Un sol amarillo radiante"
+                            rows="6"
+                        ></textarea>
+
+                        <div class="form-actions">
+                            <button id="btnGenerateCustom" class="btn-primary" onclick="generateCustomDesign()">
+                                🎨 Generar Patrón
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ai-info">
+                        <p><strong>💡 Consejos:</strong></p>
+                        <ul>
+                            <li>Menciona colores específicos para mejores resultados</li>
+                            <li>Describe formas simples y reconocibles</li>
+                            <li>El patrón se adaptará al tamaño de tu rejilla</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/grid-designer.js"></script>
+    <script src="js/design-assistant.js"></script>
 </body>
 </html>
