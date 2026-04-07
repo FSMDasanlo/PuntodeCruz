@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Funcionalidad - Punto de Cruz</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .success { color: green; }
+        .error { color: red; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Prueba de Funcionalidad - Punto de Cruz</h1>
+
+    <div class="test-section">
+        <h3>Prueba 1: Verificar elementos del DOM</h3>
+        <button onclick="testDOMElements()">Probar elementos DOM</button>
+        <div id="dom-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Prueba 2: Verificar funciones JavaScript</h3>
+        <button onclick="testJSFunctions()">Probar funciones JS</button>
+        <div id="js-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Prueba 3: Verificar carga de imágenes</h3>
+        <button onclick="testImageLoading()">Probar carga de imágenes</button>
+        <div id="image-test-result"></div>
+    </div>
+
+    <script>
+        function testDOMElements() {
+            const result = document.getElementById('dom-test-result');
+            let output = '';
+
+            const elements = [
+                'gridCanvas', 'paintColor', 'btnLoadImage', 'btnUndo', 'btnClear',
+                'imageGallery', 'galleryGrid', 'btnCloseGallery', 'imageFileInput',
+                'referenceImageContainer', 'referenceImage', 'btnRemoveImage'
+            ];
+
+            elements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    output += `<div class="success">✓ Elemento ${id} encontrado</div>`;
+                } else {
+                    output += `<div class="error">✗ Elemento ${id} NO encontrado</div>`;
+                }
+            });
+
+            result.innerHTML = output;
+        }
+
+        function testJSFunctions() {
+            const result = document.getElementById('js-test-result');
+            let output = '';
+
+            const functions = [
+                'generateGrid', 'showImageGallery', 'hideImageGallery',
+                'loadReferenceImage', 'removeReferenceImage', 'handleReferenceImageClick'
+            ];
+
+            functions.forEach(funcName => {
+                if (typeof window[funcName] === 'function') {
+                    output += `<div class="success">✓ Función ${funcName} definida</div>`;
+                } else {
+                    output += `<div class="error">✗ Función ${funcName} NO definida</div>`;
+                }
+            });
+
+            result.innerHTML = output;
+        }
+
+        function testImageLoading() {
+            const result = document.getElementById('image-test-result');
+            const img = new Image();
+
+            img.onload = function() {
+                result.innerHTML = '<div class="success">✓ Imagen abanico1.jpg cargada correctamente</div>';
+            };
+
+            img.onerror = function() {
+                result.innerHTML = '<div class="error">✗ Error al cargar imagen abanico1.jpg</div>';
+            };
+
+            img.src = 'img/abanico1.jpg';
+        }
+    </script>
+
+    <!-- Incluir el JavaScript principal para las pruebas -->
+    <script src="js/grid-designer.js"></script>
+</body>
+</html>

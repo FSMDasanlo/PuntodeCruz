@@ -44,12 +44,60 @@
 
             <!-- Canvas Area -->
             <main class="canvas-container">
+                <!-- Image Gallery (hidden by default) -->
+                <div class="image-gallery" id="imageGallery" style="display: none;">
+                    <h4>Imágenes disponibles en /img</h4>
+                    <div class="gallery-grid" id="galleryGrid">
+                        <!-- Images will be loaded here -->
+                    </div>
+                    <button class="btn-close-gallery" id="btnSelectImages" title="Seleccionar otra imagen">
+                        Seleccionar otra imagen
+                    </button>
+                    <button class="btn-close-gallery" id="btnCloseGallery">Cerrar</button>
+                </div>
+
+                <!-- Color Picker Panel -->
+                <div class="color-picker-panel">
+                    <h3>Color de Pintura</h3>
+                    <input type="color" id="paintColor" value="#ff6b6b">
+                    <div class="color-preview">
+                        <span id="currentColor">Color seleccionado</span>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-action" id="btnUndo" title="Deshacer último pintado">
+                            ↶
+                        </button>
+                        <button class="btn-action" id="btnLoadImage" title="Cargar imagen de referencia">
+                            🖼️
+                        </button>
+                        <button class="btn-action" id="btnToggleLayers" title="Intercambiar capas (rejilla/imagen)">
+                            ⇅
+                        </button>
+                        <button class="btn-action" id="btnColorPicker" title="Capturar color de la imagen">
+                            🎨
+                        </button>
+                        <button class="btn-action" id="btnClear" title="Borrar todo el diseño">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Canvas -->
                 <div class="canvas-wrapper">
                     <canvas id="gridCanvas"></canvas>
+                    <div class="reference-image-container" id="referenceImageContainer" style="display: none;">
+                        <img id="referenceImage" alt="Imagen de referencia" style="display: none;">
+                        <button class="btn-remove-image" id="btnRemoveImage" title="Quitar imagen">✕</button>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
+
+    <!-- Hidden file input -->
+    <input type="file" id="imageFileInput" accept="image/*" style="display: none;" multiple webkitdirectory directory>
 
     <script src="js/grid-designer.js"></script>
 </body>
