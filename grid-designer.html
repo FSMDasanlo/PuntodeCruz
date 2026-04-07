@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diseño de Rejilla - Punto de Cruz">
+    <title>Diseño de Rejilla - Punto de Cruz</title>
+    <link rel="stylesheet" href="css/grid-designer.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <button class="btn-back" onclick="goBack()">← Volver</button>
+            <h1 class="app-title">Diseño de Rejilla</h1>
+        </header>
+
+        <!-- Main Content -->
+        <div class="app-body">
+            <!-- Settings Panel -->
+            <aside class="settings-panel">
+                <h2>Configuración</h2>
+                
+                <div class="setting-group">
+                    <label for="gridWidth">Ancho (cm):</label>
+                    <input type="number" id="gridWidth" value="10" min="1" max="100" step="0.5">
+                </div>
+
+                <div class="setting-group">
+                    <label for="gridHeight">Alto (cm):</label>
+                    <input type="number" id="gridHeight" value="10" min="1" max="100" step="0.5">
+                </div>
+
+                <div class="setting-group">
+                    <label for="cellSize">Sep. rejilla (mm):</label>
+                    <input type="number" id="cellSize" value="1" min="0.5" max="10" step="0.5">
+                </div>
+
+                <div class="setting-group">
+                    <label for="lineColor">Color líneas:</label>
+                    <input type="color" id="lineColor" value="#e0e0e0">
+                </div>
+            </aside>
+
+            <!-- Canvas Area -->
+            <main class="canvas-container">
+                <div class="canvas-wrapper">
+                    <canvas id="gridCanvas"></canvas>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/grid-designer.js"></script>
+</body>
+</html>

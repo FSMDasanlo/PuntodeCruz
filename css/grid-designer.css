@@ -1,0 +1,252 @@
+/* ==========================================
+   RESET Y ESTILOS GENERALES
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    overflow: hidden;
+}
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.btn-back {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.app-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* ==========================================
+   BODY PRINCIPAL
+   ========================================== */
+
+.app-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ==========================================
+   PANEL DE CONFIGURACIÓN
+   ========================================== */
+
+.settings-panel {
+    background: white;
+    padding: 1.5rem;
+    border-right: 2px solid #e0e0e0;
+    overflow-y: auto;
+    flex-shrink: 0;
+    width: 280px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.settings-panel h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.setting-group label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.setting-group input[type="number"],
+.setting-group input[type="color"] {
+    padding: 0.6rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.setting-group input[type="number"]:focus,
+.setting-group input[type="color"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.setting-group input[type="color"] {
+    cursor: pointer;
+    height: 44px;
+    padding: 4px;
+}
+
+/* ==========================================
+   CANVAS CONTAINER
+   ========================================== */
+
+.canvas-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: #fafafa;
+    overflow: auto;
+}
+
+.canvas-wrapper {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0;
+}
+
+#gridCanvas {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* ==========================================
+   RESPONSIVE - MÓVILES (< 768px)
+   ========================================== */
+
+@media (max-width: 767px) {
+    .app-body {
+        flex-direction: column;
+    }
+
+    .settings-panel {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #e0e0e0;
+        max-height: 40vh;
+        overflow-y: auto;
+    }
+
+    .app-title {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE - TABLETS (768px - 1024px)
+   ========================================== */
+
+@media (min-width: 768px) {
+    .app-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .app-title {
+        font-size: 1.5rem;
+        flex: 1;
+    }
+
+    .settings-panel {
+        width: 300px;
+    }
+
+    .btn-back {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE - DESKTOP (> 1024px)
+   ========================================== */
+
+@media (min-width: 1024px) {
+    .app-header {
+        padding: 1.5rem 2rem;
+    }
+
+    .app-title {
+        font-size: 1.7rem;
+    }
+
+    .settings-panel {
+        width: 320px;
+        padding: 2rem;
+    }
+
+    .btn-back {
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+    }
+
+    .canvas-container {
+        padding: 2rem;
+    }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
