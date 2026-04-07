@@ -14,9 +14,31 @@ const anthropic = new Anthropic({
   apiKey: process.env.CLAUDE_API_KEY,
 });
 
+// Ruta raíz
+app.get("/", (req, res) => {
+  res.json({
+    name: "Punto de Cruz - Backend API",
+    version: "1.0.0",
+    status: "running",
+    endpoints: {
+      health: "GET /health",
+      generatePattern: "POST /generate-pattern",
+    },
+  });
+});
+
 // Endpoint para generar patrones
 app.post("/generate-pattern", async (req, res) => {
   try {
+    // Validar que CLAUDE_API_KEY esté configurada
+    if (!process.env.CLAUDE_API_KEY) {
+      return res.status(500).json({
+        error: "API key de Claude no configurada en el servidor",
+        details:
+          "Verifica que CLAUDE_API_KEY esté definida en las variables de entorno",
+      });
+    }
+
     const { description, maxRows, maxCols } = req.body;
 
     if (!description) {
@@ -160,4 +182,14 @@ app.listen(port, () => {
   console.log(`🚀 Servidor corriendo en puerto ${port}`);
   console.log(`📊 Health check: http://localhost:${port}/health`);
   console.log(`🎨 API de patrones: http://localhost:${port}/generate-pattern`);
+
+  // Validar configuración
+  if (!process.env.CLAUDE_API_KEY) {
+    console.warn(`⚠️  ADVERTENCIA: CLAUDE_API_KEY no está configurada!`);
+    console.warn(
+      `🔑 Configura la variable de entorno CLAUDE_API_KEY para usar la IA`,
+    );
+  } else {
+    console.log(`✅ CLAUDE_API_KEY configurada`);
+  }
 });
