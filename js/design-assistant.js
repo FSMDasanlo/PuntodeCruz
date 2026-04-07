@@ -433,7 +433,7 @@ async function generateCustomDesign() {
 
 // Función para llamar al backend
 async function generatePatternWithBackend(description, maxRows, maxCols) {
-  const backendUrl = "https://tu-backend-url.onrender.com/generate-pattern"; // Cambia esto por tu URL real
+  const backendUrl = "https://puntodecruz.onrender.com/generate-pattern";
 
   const response = await fetch(backendUrl, {
     method: "POST",
