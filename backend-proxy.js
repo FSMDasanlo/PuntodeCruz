@@ -68,28 +68,29 @@ app.post("/generate-pattern", async (req, res) => {
     const prompt = `Eres un experto en diseño de patrones para punto de cruz. Crea un patrón de pixel art basado en la descripción: "${description}".
 
 INSTRUCCIONES:
-- El patrón debe ser simétrico cuando sea apropiado (como flores, animales, objetos)
 - Usa números del 1-4 para representar diferentes colores
 - Usa 0 para espacios vacíos
-- El patrón debe ser legible y reconocible
-- Mantén el patrón simple pero detallado
-- Dimensiones máximas: ${maxRows}x${maxCols} (pero puedes usar menos)
-- Devuelve SOLO el patrón como array de arrays, sin texto adicional
+- Si la descripción es una letra, crea la letra con un solo color claro y el resto en 0
+- Si la descripción es una forma simple, el patrón debe ser claramente reconocible
+- El patrón debe ser lo más simple posible, con líneas netas y pocos colores
+- Usa una cuadrícula rectangular que sea fácil de leer
+- No agregues texto, etiquetas, explicaciones ni formato adicional
+- Devuelve SOLO un objeto JSON válido
 
 FORMATO DE RESPUESTA:
 Devuelve un objeto JSON con:
 - pattern: array de arrays con números 0-4
-- colors: array de 4 colores hex (ej: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"])
+- colors: array de 1 a 4 colores hex válidos
 
-Ejemplo para un corazón simple:
+Ejemplo para una letra J simple:
 {
   "pattern": [
-    [0,1,1,0],
-    [1,1,1,1],
-    [1,1,1,1],
-    [0,1,1,0]
+    [0,0,0,1],
+    [0,0,0,1],
+    [0,0,0,1],
+    [1,1,1,1]
   ],
-  "colors": ["#ff0000", "#ff69b4", "#ffffff", "#000000"]
+  "colors": ["#0000ff"]
 }
 
 Ahora crea el patrón para: ${description}`;
@@ -98,10 +99,10 @@ Ahora crea el patrón para: ${description}`;
     console.log("🤖 Llamando a Claude API...");
     const message = await anthropic.messages.create({
       model: "claude-3-haiku-20240307",
-      max_tokens: 2000,
-      temperature: 0.7,
+      max_tokens: 1500,
+      temperature: 0.2,
       system:
-        "Eres un experto en diseño de patrones para punto de cruz. Siempre respondes con JSON válido.",
+        "Eres un experto en diseño de patrones para punto de cruz. Responde siempre con una única salida JSON válida sin texto adicional.",
       messages: [
         {
           role: "user",
