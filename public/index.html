@@ -91,12 +91,6 @@
             <label for="description">Descripción del patrón (ej: "Letra M mayúscula", "corazón simple", "flor"):</label>
             <textarea id="description" rows="3" placeholder="Describe el patrón que quieres generar..."></textarea>
 
-            <label for="maxRows">Filas (alto del patrón):</label>
-            <input type="number" id="maxRows" value="20" min="5" max="50">
-
-            <label for="maxCols">Columnas (ancho del patrón):</label>
-            <input type="number" id="maxCols" value="20" min="5" max="50">
-
             <label for="imageInput">Subir imagen de referencia (opcional):</label>
             <input type="file" id="imageInput" accept="image/*">
 
@@ -114,8 +108,6 @@
     <script>
         async function generatePattern() {
             const description = document.getElementById('description').value;
-            const maxRows = parseInt(document.getElementById('maxRows').value);
-            const maxCols = parseInt(document.getElementById('maxCols').value);
             const imageInput = document.getElementById('imageInput');
             const file = imageInput.files[0];
 
@@ -129,16 +121,6 @@
 
             if (!description) {
                 errorMessage.textContent = 'Por favor, introduce una descripción.';
-                loadingIndicator.style.display = 'none';
-                return;
-            }
-            if (isNaN(maxRows) || maxRows < 5 || maxRows > 50) {
-                errorMessage.textContent = 'Las filas deben ser un número entre 5 y 50.';
-                loadingIndicator.style.display = 'none';
-                return;
-            }
-            if (isNaN(maxCols) || maxCols < 5 || maxCols > 50) {
-                errorMessage.textContent = 'Las columnas deben ser un número entre 5 y 50.';
                 loadingIndicator.style.display = 'none';
                 return;
             }
@@ -169,8 +151,6 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         description,
-                        maxRows,
-                        maxCols,
                         image: imageData,
                         imageType: imageType
                     })
