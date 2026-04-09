@@ -164,7 +164,7 @@
             }
 
             try {
-                const response = await fetch('/generate-pattern', {
+                const response = await fetch('./generate-pattern', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -177,13 +177,19 @@
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Error desconocido al generar el patrón.');
+                    const textError = await response.text();
+                    let errorMessageDetail = "Error del servidor";
+                    try {
+                        const errorJson = JSON.parse(textError);
+                        errorMessageDetail = errorJson.error || textError;
+                    } catch(e) {
+                        errorMessageDetail = textError;
+                    }
+                    throw new Error(errorMessageDetail);
                 }
 
                 const result = await response.json();
                 displayPattern(result.pattern, result.colors);
-
             } catch (error) {
                 console.error('Error:', error);
                 errorMessage.textContent = 'Error al conectar con el servidor o generar el patrón: ' + error.message;
